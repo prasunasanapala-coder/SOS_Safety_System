@@ -1,7 +1,4 @@
-# sos_safety
-
-A new Flutter project.
-
+A Flutter-based personal safety app with Firebase authentication, emergency contacts, location-based SOS alerts, Firestore history, and notification support.
 ## Getting Started
 
 This project is a starting point for a Flutter application.
