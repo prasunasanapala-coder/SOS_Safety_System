@@ -32,7 +32,7 @@ class SOSSafetyApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.system,
-        home: const AppShell(),
+        home: const AuthGate(),
         routes: {
           '/login': (_) => const LoginScreen(),
           '/register': (_) => const RegisterScreen(),
@@ -52,7 +52,15 @@ class AuthGate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AppShell();
+    final auth = context.watch<AuthService>();
+
+    if (auth.isLoading) {
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    return auth.isAuthenticated ? const AppShell() : const LoginScreen();
   }
 }
 

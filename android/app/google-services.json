@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "483912560165",
+    "project_id": "sos-safety-system-e6eae",
+    "storage_bucket": "sos-safety-system-e6eae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483912560165:android:0f832355941b755350d9cc",
+        "android_client_info": {
+          "package_name": "com.example.sos_safety"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL21MpMCOaYLN_uOEBis6Rc-nUW2tQ9jI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
