@@ -1,0 +1,86 @@
+rules_version = '2';
+
+// Every document lives under users/{uid} and can only be touched by that user.
+// Nothing is open to the public and there is no test-mode "allow if true".
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function isString(value, minLen, maxLen) {
+      return value is string && value.size() >= minLen && value.size() <= maxLen;
+    }
+
+    function validProfile() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['displayName', 'demoMode', 'emergencyNumber', 'countdownSeconds', 'updatedAt'])
+        && d.keys().hasAll(['displayName', 'demoMode', 'emergencyNumber', 'countdownSeconds'])
+        && isString(d.displayName, 1, 60)
+        && d.demoMode is bool
+        && isString(d.emergencyNumber, 3, 15)
+        && d.countdownSeconds is int
+        && d.countdownSeconds >= 3 && d.countdownSeconds <= 10
+        && d.updatedAt == request.time;
+    }
+
+    function validContact() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['name', 'phone', 'relationship', 'isPrimary', 'createdAt'])
+        && d.keys().hasAll(['name', 'phone', 'relationship', 'isPrimary'])
+        && isString(d.name, 1, 60)
+        && isString(d.phone, 5, 20)
+        && isString(d.relationship, 1, 40)
+        && d.isPrimary is bool;
+    }
+
+    function validSosEvent() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['status', 'demoMode', 'contactCount', 'locationShared', 'latitude', 'longitude', 'createdAt'])
+        && d.keys().hasAll(['status', 'demoMode', 'contactCount', 'locationShared', 'createdAt'])
+        && d.status in ['initiated', 'cancelled']
+        && d.demoMode is bool
+        && d.contactCount is int && d.contactCount >= 0 && d.contactCount <= 100
+        && d.locationShared is bool
+        && d.createdAt == request.time
+        && (!('latitude' in d) || (d.latitude is number && d.latitude >= -90 && d.latitude <= 90))
+        && (!('longitude' in d) || (d.longitude is number && d.longitude >= -180 && d.longitude <= 180));
+    }
+
+    function validToken() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['platform', 'updatedAt'])
+        && isString(d.platform, 1, 30)
+        && d.updatedAt == request.time;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create, update: if isOwner(uid) && validProfile();
+      allow delete: if false;
+
+      match /emergencyContacts/{contactId} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid) && validContact();
+      }
+
+      match /sosHistory/{eventId} {
+        allow read, delete: if isOwner(uid);
+        allow create: if isOwner(uid) && validSosEvent();
+        allow update: if false; // history is append-only
+      }
+
+      match /fcmTokens/{token} {
+        allow read, delete: if isOwner(uid);
+        allow create, update: if isOwner(uid) && validToken();
+      }
+    }
+
+    // Everything else is denied by default.
+  }
+}

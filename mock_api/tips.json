@@ -1,0 +1,14 @@
+{
+  "source": "MOCK API for the SOS Safety System academic project. Sample content, not official safety guidance.",
+  "tips": [
+    {"id": "p1", "category": "Personal safety", "title": "Share your plans", "body": "Tell a trusted person where you are going and when you expect to arrive."},
+    {"id": "p2", "category": "Personal safety", "title": "Stay aware of your surroundings", "body": "Keep your phone and headphones low when walking alone, especially after dark."},
+    {"id": "p3", "category": "Personal safety", "title": "Trust your instincts", "body": "If a place or person makes you uneasy, move to a busy, well-lit area and ask for help."},
+    {"id": "t1", "category": "Travel safety", "title": "Use licensed transport", "body": "Check the vehicle details before getting in, and share your trip details with a contact."},
+    {"id": "t2", "category": "Travel safety", "title": "Keep copies of documents", "body": "Store photos of your ID and tickets separately from the originals."},
+    {"id": "t3", "category": "Travel safety", "title": "Charge your phone", "body": "Carry a power bank on long trips so you can always reach your contacts."},
+    {"id": "e1", "category": "Emergency preparedness", "title": "Know your local emergency number", "body": "Learn the emergency number for your country and keep your contacts up to date."},
+    {"id": "e2", "category": "Emergency preparedness", "title": "Prepare a basic kit", "body": "Keep a small kit with a torch, first-aid items, water and important phone numbers on paper."},
+    {"id": "e3", "category": "Emergency preparedness", "title": "Practise your plan", "body": "Agree on a meeting place with family and rehearse what to do in an emergency."}
+  ]
+}

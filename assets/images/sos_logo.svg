@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">SOS Safety System</title>
+  <desc id="desc">A red safety shield with an SOS label</desc>
+  <path fill="#D32F2F" d="M128 16 32 52v64c0 59.2 40.9 100.8 96 124 55.1-23.2 96-64.8 96-124V52l-96-36Z"/>
+  <path fill="#fff" d="M128 42 58 68v48c0 42.3 27.8 74.3 70 95.2 42.2-20.9 70-52.9 70-95.2V68l-70-26Z"/>
+  <text x="128" y="132" fill="#D32F2F" font-family="Arial, sans-serif" font-size="42" font-weight="700" text-anchor="middle">SOS</text>
+</svg>
